@@ -9,6 +9,7 @@ import config_handling
 import license_handling
 import userfiles_handling
 
+import cli_parser.main_parser
 
 def main_check(args, config):
     """CLI program command: check
@@ -287,4 +288,4 @@ def main(args):
 
 
 if __name__ == "__main__":
-    main(create_main_parser().parse_args())
+    main(cli_parser.main_parser.create_main_parser().parse_args())
