@@ -78,7 +78,7 @@ def rank_license_text(userfile_path, config):
 
         userfile_header_license_pair = zip(
             licenses.list,
-            itertools.tee(userfile_header_iter, len(licenses.list),
+            itertools.tee(userfile_header_iter, len(licenses.list),)
         )
 
         def _license_sequence_matcher_gen():
