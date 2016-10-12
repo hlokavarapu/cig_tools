@@ -5,7 +5,7 @@ import difflib
 import itertools
 
 import licenses
-import userfile_handling
+import userfiles_handling
 
 
 def main(args, config):
@@ -85,24 +85,24 @@ def rank_license_text(userfile_path, config):
             for license_name, userfile_header_iter in \
                 userfile_header_license_pair:
 
-            commented_header = license_handling.create_header(
-                license_name,
-                commentfmt,
-                config,
-            )
+                commented_header = license_handling.create_header(
+                    license_name,
+                    commentfmt,
+                    config,
+                )
 
-            yield (
-                license_name,
-                difflib.SequenceMatcher(
-                    a=commented_header,
-                    b="".join(
-                        itertools.islice(
-                            userfile_header_iter,
-                            len(commented_header.splitlines())
-                        )
+                yield (
+                    license_name,
+                    difflib.SequenceMatcher(
+                        a=commented_header,
+                        b="".join(
+                            itertools.islice(
+                                userfile_header_iter,
+                                len(commented_header.splitlines())
+                            )
+                        ),
                     ),
-                ),
-            )
+                )
 
         def snd_ratio_call(pair):
             return pair[1].ratio()

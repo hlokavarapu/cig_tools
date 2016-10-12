@@ -1,7 +1,7 @@
 """Submodule for 'check' command functionality.
 """
 
-import userfile_handling
+import userfiles_handling
 
 
 def main(args, config):

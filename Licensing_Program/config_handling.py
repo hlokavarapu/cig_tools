@@ -97,9 +97,7 @@ CONFIG_SCHEMA = {
     "type": "object",
 }
 
-CONFIG_DEFAULT = {
-
-}
+CONFIG_DEFAULT = '{"IgnoredFiles": [".licensing.json", ".git/**", ".gitignore",], "LicenseParameters": {}, "CommentedFiles": {}}'
 
 
 # antpatterns: https://ant.apache.org/manual/dirtasks.html#patterns
@@ -194,3 +192,22 @@ def load_configfile(cwd=".", info_level=""):
         )
 
     return config
+
+
+def genearate_default_configfile(cwd="."):
+    """After reading input related to the specifics of type of license, code
+    name, list of authors, year of copyright and etc, this function then
+    generates a template json file.
+    """
+    with open(CONFIG_FILENAME, 'w') as new_configfile:
+        name_of_license = input("Enter license name:")
+        name_of_code = input("Enter project name:")
+        list_of_authors = eval(input("List of authors:"))
+
+        auto_config = eval(CONFIG_DEFAULT)
+        auto_config["License"] = name_of_license
+        auto_config["LicenseParameters"].update({"ProjectName": name_of_code})
+        auto_config["LicenseParameters"].update({"fullname": list_of_authors})
+        auto_config["CommentedFiles"] = {"**/*.[f|F]90": {"LineCommentStart": "!  ","InsertAtLine": 0}}
+
+        json.dump(auto_config, new_configfile, indent=4)
