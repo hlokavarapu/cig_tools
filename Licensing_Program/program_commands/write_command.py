@@ -19,7 +19,7 @@ def main(args, config):
             print(userfile_path)
             print(list(rank_license_text(userfile_path, config)))
     else:
-        pass
+        create_header(config["License"], "**/*.c", config)
 
 
 def create_header(license_name, commentfmt, config):

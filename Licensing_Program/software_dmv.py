@@ -9,6 +9,11 @@ import config_handling
 import license_handling
 import userfiles_handling
 
+import cli_parser.main_parser
+
+import program_commands.check_command
+import program_commands.write_command
+import program_commands.config_command
 
 def main_check(args, config):
     """CLI program command: check
@@ -274,18 +279,17 @@ def main(args):
     """Program entrypoint.
     Calls requested CLI command.
     """
-    config = config_handling.load_configfile()
 
     if args.command == "check":
-        main_check(args, config)
-    elif args.command == "choose":
-        main_choose(args, config)
-    elif args.command == "list":
-        main_list(args, config)
-    elif args.command == "settings":
-        main_settings(args, config)
+        config = config_handling.load_configfile()
+        program_commands.check_command.main(args, config)
+    elif args.command == "config":
+        program_commands.config_command.main(args)
+    elif args.command == "write":
+        config = config_handling.load_configfile()
+        program_commands.write_command.main(args, config)
 
 
 if __name__ == "__main__":
-    main(create_main_parser().parse_args())
+    main(cli_parser.main_parser.create_main_parser().parse_args())
 
